@@ -57,8 +57,7 @@ plt.plot(df_regions["Maryland"], label = "MD")
 plt.plot(df_regions["Virginia"], label = "VA")
 plt.plot(df_regions["District of Columbia"], label = "DC")
 plt.legend()
-# plt.show()
+plt.show()
+
 # export table
-print(os.getcwd())
-print(path)
 df_regions.to_csv(clean_data_path + " regions_table.csv")
