@@ -18,11 +18,17 @@ pngs_folder = str(path) + "/pngs/"
 
 # set file paths to INGEST here.
 state_stats_path = data_path + "State_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv"
+city_rental_path = data_path + "City_zori_sm_month.csv"
+
 
 # --------------------
 
-# ----- create data frames here -----
+# ----- create data frames for the Homevalue here -----
 df = pd.read_csv(state_stats_path)
+print(df)
+# Create data frames for Rental -----
+df_rental = pd.read_csv(city_rental_path)
+print(df_rental)
 
 # --------------------
 
