@@ -19,7 +19,7 @@ pngs_folder = str(path) + "/pngs/"
 # set file paths to INGEST here.
 state_stats_path = data_path + "State_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv"
 city_rental_path = data_path + "City_zori_sm_month.csv"
-
+zip_home_value_path = data_path + "Zip_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv"
 
 # --------------------
 
@@ -29,7 +29,9 @@ print(df)
 # Create data frames for Rental -----
 df_rental = pd.read_csv(city_rental_path)
 print(df_rental)
-
+# Create data frames for Home value by zipcode
+df_home_value_zip = pd.read_csv(zip_home_value_path)
+print(df_home_value_zip)
 # --------------------
 
 
@@ -69,6 +71,8 @@ plt.show()
 
 # export table
 df_state.to_csv(cleanData_folder + "regions_table.csv")
+df_rental.to_csv(cleanData_folder + "ingested_rental")
+df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value")
 
 # --------------------
 
