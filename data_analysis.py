@@ -71,8 +71,8 @@ plt.show()
 
 # export table
 df_state.to_csv(cleanData_folder + "regions_table.csv")
-df_rental.to_csv(cleanData_folder + "ingested_rental")
-df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value")
+df_rental.to_csv(cleanData_folder + "ingested_rental.csv")
+df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value.csv")
 
 # --------------------
 
