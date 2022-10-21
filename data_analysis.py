@@ -56,6 +56,19 @@ df_state.drop(df_state.index[0], inplace = True)
 df_state.rename(columns = {'RegionName':'Date'}, inplace = True)
 df_state.reset_index(inplace=True, drop=True)
 
+# ---- rental price analysis in DMV ---
+# Drop uneccessary columns
+df_rental = df_rental.drop(['RegionID', 'SizeRank', 'RegionType', 'State', 'Metro'], axis= 1)
+print(df_rental)
+
+# Extract each state rental price
+df_rental_MD = df_rental[df_rental.StateName == 'MD']
+df_rental_VA = df_rental[df_rental.StateName == 'VA']
+df_rental_DC = df_rental[df_rental.StateName == 'DC']
+
+# transpose MD
+df_rental_MD = df_rental_MD.T
+print(df_rental_MD)
 # --------------------
 
 # ---- country wide plot and csv export ----
