@@ -25,7 +25,7 @@ zip_home_value_path = data_path + \
 # --------------------
 
 # ----- create data frames for the Homevalue here -----
-# df = pd.read_csv(state_stats_path)
+df = pd.read_csv(state_stats_path)
 print(df)
 # Create data frames for Rental -----
 df_rental = pd.read_csv(city_rental_path)
@@ -43,6 +43,7 @@ region_list = ["Maryland", "Virginia", "District of Columbia"]
 region_list2 = ["MD", "VA", "DC"]
 # # remove all states but Maryland Virginia and DC
 df_state = df[df.RegionName.isin(region_list) == True]
+df_rental = df_rental[df_rental.State.isin(region_list2) == True]
 # #remove unecessary columns
 df_state = df_state.drop(["RegionID"], 1)
 df_state = df_state.drop(["SizeRank"], 1)
@@ -66,11 +67,11 @@ print(df_rental2)
 # --------------------
 # modify plot and show
 
-# TO DO: Create a data visualization that shows the counties for Maryland with the price values
+# TO DO: Create a data visualization that shows the counties for Maryland with the price values - Viphu 
 plt.title("Price Per County")
 plt.xlabel("Year")
 plt.ylabel("County")
-plt.plot(df_rental2["Maryland"], label="MD")
+plt.plot(df_rental2["MD"], label="MD") ## Something is wrong right here
 plt.legend()
 plt.savefig(pngs_folder + 'county_.png')
 plt.show()
