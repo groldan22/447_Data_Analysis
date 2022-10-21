@@ -64,9 +64,8 @@ df_rental_MD = df_rental[df_rental.StateName == 'MD']
 df_rental_VA = df_rental[df_rental.StateName == 'VA']
 df_rental_DC = df_rental[df_rental.StateName == 'DC']
 
-# transpose MD
-df_rental_MD = df_rental_MD.T
-print(df_rental_MD)
+print(df_rental_MD.mean())
+
 # --------------------
 
 # ---- country wide plot and csv export ----
