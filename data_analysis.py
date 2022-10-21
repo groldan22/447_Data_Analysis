@@ -59,8 +59,6 @@ df_state.reset_index(inplace=True, drop=True)
 # ---- rental price analysis in DMV ---
 # Drop uneccessary columns
 df_rental = df_rental.drop(['RegionID', 'SizeRank', 'RegionType', 'State', 'Metro'], axis= 1)
-print(df_rental)
-
 # Extract each state rental price
 df_rental_MD = df_rental[df_rental.StateName == 'MD']
 df_rental_VA = df_rental[df_rental.StateName == 'VA']
