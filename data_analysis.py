@@ -59,10 +59,6 @@ df_state.drop(df_state.index[0], inplace = True)
 df_state.rename(columns = {'RegionName':'Date'}, inplace = True)
 df_state.reset_index(inplace=True, drop=True)
 
-# Dropping the rows that are unnecessary
-df_rental2 = df_rental.drop(
-    ['RegionID', 'SizeRank', 'RegionType', 'StateName', 'Metro'], axis=1)
-print(df_rental2)
 # --------------------
 # modify plot and show
 plt.xlabel("Year")
