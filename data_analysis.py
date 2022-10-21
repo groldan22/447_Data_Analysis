@@ -64,7 +64,17 @@ df_rental_MD = df_rental[df_rental.StateName == 'MD']
 df_rental_VA = df_rental[df_rental.StateName == 'VA']
 df_rental_DC = df_rental[df_rental.StateName == 'DC']
 
-print(df_rental_MD.mean())
+df_rental_mean = pd.DataFrame({'State':['Maryland', 'Virginia', 'DC'], \
+    'Rental':[df_rental_MD.mean().mean(), df_rental_VA.mean().mean(), df_rental_DC.mean().mean()]})
+#Plot the bar chart for rental price
+plt.bar(df_rental_mean.State, df_rental_mean.Rental)
+plt.title('Rental price in DMV')
+plt.xlabel('States')
+plt.ylabel('Rental Price')
+plt.savefig(pngs_folder + 'rental_price.png')
+plt.show()
+
+
 
 # --------------------
 
