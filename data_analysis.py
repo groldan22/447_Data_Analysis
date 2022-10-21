@@ -65,6 +65,8 @@ print(df_rental2)
 
 # --------------------
 # modify plot and show
+
+## TO DO: Create a data visualization that shows the county for Maryland with the price values
 plt.xlabel("Year")
 plt.ylabel("County")
 plt.plot(df_rental2["Maryland"], label = "MD")
