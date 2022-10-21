@@ -42,11 +42,10 @@ print(df_home_value_zip)
 region_list = ["Maryland", "Virginia", "District of Columbia"]
 region_list2 = ["MD", "VA", "DC"]
 # # remove all states but Maryland Virginia and DC
-# df_state = df[df.RegionName.isin(region_list) == True]
-df_rental = df_rental[df_rental.StateName.isin(region_list2) == True]
+df_state = df[df.RegionName.isin(region_list) == True]
 # #remove unecessary columns
-# df_state = df_state.drop(["RegionID"],1)
-# df_state = df_state.drop(["SizeRank"],1)
+df_state = df_state.drop(["RegionID"],1)
+df_state = df_state.drop(["SizeRank"],1)
 
 # # transpose + clean
 df_state = df_state.T
@@ -58,6 +57,11 @@ df_state.drop(df_state.index[0], inplace = True)
 df_state.drop(df_state.index[0], inplace = True)
 df_state.rename(columns = {'RegionName':'Date'}, inplace = True)
 df_state.reset_index(inplace=True, drop=True)
+
+# Dropping the rows that are unnecessary
+df_rental2 = df_rental.drop(
+    ['RegionID', 'SizeRank', 'RegionType', 'StateName', 'Metro'], axis=1)
+print(df_rental2)
 
 # --------------------
 # modify plot and show
