@@ -44,18 +44,18 @@ region_list2 = ["MD", "VA", "DC"]
 # # remove all states but Maryland Virginia and DC
 df_state = df[df.RegionName.isin(region_list) == True]
 # #remove unecessary columns
-df_state = df_state.drop(["RegionID"],1)
-df_state = df_state.drop(["SizeRank"],1)
+df_state = df_state.drop(["RegionID"], 1)
+df_state = df_state.drop(["SizeRank"], 1)
 
 # # transpose + clean
 df_state = df_state.T
 df_state.reset_index(inplace=True, drop=False)
 # update header to first row then delete un-needed rows. Make print statements between rows to see changes.
 df_state = df_state.rename(columns=df_state.iloc[0])
-df_state.drop(df_state.index[0], inplace = True)
-df_state.drop(df_state.index[0], inplace = True)
-df_state.drop(df_state.index[0], inplace = True)
-df_state.rename(columns = {'RegionName':'Date'}, inplace = True)
+df_state.drop(df_state.index[0], inplace=True)
+df_state.drop(df_state.index[0], inplace=True)
+df_state.drop(df_state.index[0], inplace=True)
+df_state.rename(columns={'RegionName': 'Date'}, inplace=True)
 df_state.reset_index(inplace=True, drop=True)
 
 # Dropping the rows that are unnecessary
@@ -66,23 +66,22 @@ print(df_rental2)
 # --------------------
 # modify plot and show
 
-## TO DO: Create a data visualization that shows the county for Maryland with the price values
+# TO DO: Create a data visualization that shows the counties for Maryland with the price values
+plt.title("Price Per County")
 plt.xlabel("Year")
 plt.ylabel("County")
-plt.plot(df_rental2["Maryland"], label = "MD")
-plt.plot(df_rental2["Virginia"], label = "VA")
-plt.plot(df_rental2["District of Columbia"], label = "DC")
+plt.plot(df_rental2["Maryland"], label="MD")
 plt.legend()
-plt.savefig(pngs_folder + 'state_time_series.png')
+plt.savefig(pngs_folder + 'county_.png')
 plt.show()
 
 # ---- country wide plot and csv export ----
 # modify plot and show
 plt.xlabel("Year")
 plt.ylabel("Price")
-plt.plot(df_state["Maryland"], label = "MD")
-plt.plot(df_state["Virginia"], label = "VA")
-plt.plot(df_state["District of Columbia"], label = "DC")
+plt.plot(df_state["Maryland"], label="MD")
+plt.plot(df_state["Virginia"], label="VA")
+plt.plot(df_state["District of Columbia"], label="DC")
 plt.legend()
 plt.savefig(pngs_folder + 'state_time_series.png')
 plt.show()
