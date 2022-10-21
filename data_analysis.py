@@ -59,20 +59,12 @@ df_state.reset_index(inplace=True, drop=True)
 # ---- rental price analysis in DMV ---
 # Drop uneccessary columns
 df_rental = df_rental.drop(['RegionID', 'SizeRank', 'RegionType', 'State', 'Metro'], axis= 1)
+state_list = ['MD', 'VA', 'DC']
+df_rental = df_rental[df_rental.StateName.isin(state_list) == True]
+df_rental = df_rental.T
+print(df_rental)
 # Extract each state rental price
-df_rental_MD = df_rental[df_rental.StateName == 'MD']
-df_rental_VA = df_rental[df_rental.StateName == 'VA']
-df_rental_DC = df_rental[df_rental.StateName == 'DC']
 
-df_rental_mean = pd.DataFrame({'State':['Maryland', 'Virginia', 'DC'], \
-    'Rental':[df_rental_MD.mean().mean(), df_rental_VA.mean().mean(), df_rental_DC.mean().mean()]})
-#Plot the bar chart for rental price
-plt.bar(df_rental_mean.State, df_rental_mean.Rental)
-plt.title('Rental price in DMV')
-plt.xlabel('States')
-plt.ylabel('Rental Price')
-plt.savefig(pngs_folder + 'rental_price.png')
-plt.show()
 
 
 
