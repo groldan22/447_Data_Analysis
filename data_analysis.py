@@ -26,13 +26,13 @@ zip_home_value_path = data_path + \
 
 # ----- create data frames for the Homevalue here -----
 df = pd.read_csv(state_stats_path)
-print(df)
+# print(df)
 # Create data frames for Rental -----
 df_rental = pd.read_csv(city_rental_path)
-print(df_rental)
+# print(df_rental)
 # Create data frames for Home value by zipcode
 df_home_value_zip = pd.read_csv(zip_home_value_path)
-print(df_home_value_zip)
+# print(df_home_value_zip)
 # --------------------
 
 
@@ -62,19 +62,23 @@ df_state.reset_index(inplace=True, drop=True)
 # Dropping the rows that are unnecessary
 df_rental2 = df_rental.drop(
     ['RegionID', 'SizeRank', 'RegionType', 'StateName', 'Metro'], axis=1)
-print(df_rental2)
+# print(df_rental2)
 
 # --------------------
 # modify plot and show
 
 # TO DO: Create a data visualization that shows the counties for Maryland with the price values - Viphu 
+# maryland = df_rental2['MD']
+# print(maryland)
+print(df_rental2.dtypes)
+
 plt.title("Price Per County")
 plt.xlabel("Year")
 plt.ylabel("County")
-plt.plot(df_rental2["MD"], label="MD") ## Something is wrong right here
+# plt.plot(df_rental2["MD"], label="MD") ## Something is wrong right here
 plt.legend()
 plt.savefig(pngs_folder + 'county_.png')
-plt.show()
+# plt.show()
 
 # ---- country wide plot and csv export ----
 # modify plot and show
@@ -85,11 +89,11 @@ plt.plot(df_state["Virginia"], label="VA")
 plt.plot(df_state["District of Columbia"], label="DC")
 plt.legend()
 plt.savefig(pngs_folder + 'state_time_series.png')
-plt.show()
+# plt.show()
 
 # export table
-df_state.to_csv(cleanData_folder + "regions_table.csv")
-df_rental.to_csv(cleanData_folder + "ingested_rental.csv")
-df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value.csv")
+# df_state.to_csv(cleanData_folder + "regions_table.csv")
+# df_rental.to_csv(cleanData_folder + "ingested_rental.csv")
+# df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value.csv")
 
 # --------------------
