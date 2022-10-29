@@ -66,19 +66,38 @@ df_rental2 = df_rental.drop(
 
 # --------------------
 # modify plot and show
-
-# TO DO: Create a data visualization that shows the counties for Maryland with the price values - Viphu 
-# maryland = df_rental2['MD']
+"""---------------------------"""
+# TO DO: Create a data visualization that shows the top 10 counties from Maryland based on the price values - Viphu
+# Removing the NaN with 0 values
+df_rental2 = df_rental2.fillna(0)
+maryland = df_rental2[df_rental2['State'] == 'MD']
+# Remove the column for city name
+maryland = maryland.drop(['RegionName'], axis=1)
 # print(maryland)
-print(df_rental2.dtypes)
+print(maryland.dtypes)
 
-plt.title("Price Per County")
-plt.xlabel("Year")
-plt.ylabel("County")
-# plt.plot(df_rental2["MD"], label="MD") ## Something is wrong right here
-plt.legend()
-plt.savefig(pngs_folder + 'county_.png')
+# maryland = maryland['CountyName'].nlargest(10)
+
+# Create category counts for the Counties variable
+maryland_counties = maryland.groupby(['CountyName'], sort=False).size().sort_values(ascending=False)
+
+maryland_counties = (maryland_counties.set_index(["State", "CountyName"])
+         .stack()
+         .reset_index(name='Value')
+         .rename(columns={'level_2':'Date'}))
+print(maryland_counties)
+
+# plt.title("Price Per County")
+# plt.xlabel("County")
+# plt.ylabel("Price Values")
+# xlabel = maryland['CountyName']
+# ylabel = maryland['']
+# plt.xticks(xlabel)
+# plt.yticks()
+# plt.plot(xlabel, )
+# # plt.savefig(pngs_folder + 'county_.png')
 # plt.show()
+"""---------------------------"""
 
 # ---- country wide plot and csv export ----
 # modify plot and show
