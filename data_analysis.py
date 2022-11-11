@@ -74,19 +74,34 @@ maryland = df_rental2[df_rental2['State'] == 'MD']
 # Remove the column for city name
 maryland = maryland.drop(['RegionName'], axis=1)
 # print(maryland)
-print(maryland.dtypes)
+# print(maryland.dtypes)
 
 # maryland = maryland['CountyName'].nlargest(10)
 
 # Create category counts for the Counties variable
 maryland_counties = maryland.groupby(['CountyName'], sort=False).size().sort_values(ascending=False)
 
-maryland_counties = (maryland_counties.set_index(["State", "CountyName"])
-         .stack()
-         .reset_index(name='Value')
-         .rename(columns={'level_2':'Date'}))
-print(maryland_counties)
+# maryland_counties = (maryland_counties.set_index(["State", "CountyName"])
+#          .stack()
+#          .reset_index(name='Value')
+#          .rename(columns={'level_2':'Date'}))
+# print(maryland_counties)
 
+# Merge all of the date columns to rows
+maryland2 = maryland.melt(id_vars=['State', 'CountyName'],
+              var_name='Date',
+              value_name='Value')
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.width', 1000)
+# print(maryland2)
+
+maryland3 = maryland2.groupby(['CountyName', 'Date', 'Value']).size().sort_values(ascending=False)
+# print(maryland3)
+
+# Export to CSV
+maryland3.to_csv('TestB.csv')
+
+# To display a graph of price per county
 # plt.title("Price Per County")
 # plt.xlabel("County")
 # plt.ylabel("Price Values")
