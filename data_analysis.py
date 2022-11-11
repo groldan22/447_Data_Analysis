@@ -96,33 +96,40 @@ pd.set_option('display.width', 1000)
 # print(maryland2)
 
 maryland3 = maryland2.groupby(['CountyName', 'Date', 'Value']).size().sort_values(ascending=False)
-# print(maryland3)
+# Export to CSV
+# maryland3.to_csv('TestB.csv')
+
+
+md = pd.read_csv('TestB.csv')
+# Drop all of the rows with zero values
+md = md.loc[~((md['Value'] == 0))]
+# print(md)
 
 # Export to CSV
-maryland3.to_csv('TestB.csv')
+md.to_csv('TestC.csv')
 
 # To display a graph of price per county
 # plt.title("Price Per County")
 # plt.xlabel("County")
 # plt.ylabel("Price Values")
-# xlabel = maryland['CountyName']
-# ylabel = maryland['']
+# xlabel = maryland3['CountyName']
+# ylabel = maryland3['Value']
 # plt.xticks(xlabel)
 # plt.yticks()
-# plt.plot(xlabel, )
+# plt.plot(xlabel,ylabel)
 # # plt.savefig(pngs_folder + 'county_.png')
 # plt.show()
 """---------------------------"""
 
 # ---- country wide plot and csv export ----
 # modify plot and show
-plt.xlabel("Year")
-plt.ylabel("Price")
-plt.plot(df_state["Maryland"], label="MD")
-plt.plot(df_state["Virginia"], label="VA")
-plt.plot(df_state["District of Columbia"], label="DC")
-plt.legend()
-plt.savefig(pngs_folder + 'state_time_series.png')
+# plt.xlabel("Year")
+# plt.ylabel("Price")
+# plt.plot(df_state["Maryland"], label="MD")
+# plt.plot(df_state["Virginia"], label="VA")
+# plt.plot(df_state["District of Columbia"], label="DC")
+# plt.legend()
+# plt.savefig(pngs_folder + 'state_time_series.png')
 # plt.show()
 
 # export table
