@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tkr
+import numpy as np
 
 # ---- set universal paths here ----
 # read current working directory
@@ -73,41 +74,56 @@ df_rental2 = df_rental2.fillna(0)
 maryland = df_rental2[df_rental2['State'] == 'MD']
 # Remove the column for city name
 maryland = maryland.drop(['RegionName'], axis=1)
-# print(maryland)
-print(maryland.dtypes)
 
-# maryland = maryland['CountyName'].nlargest(10)
+# Merge all of the date columns to rows
+maryland2 = maryland.melt(id_vars=['State', 'CountyName'],
+                          var_name='Date',
+                          value_name='Value')
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.width', 1000)
 
-# Create category counts for the Counties variable
-maryland_counties = maryland.groupby(['CountyName'], sort=False).size().sort_values(ascending=False)
+maryland3 = maryland2.groupby(
+    ['CountyName', 'Date', 'Value']).size().sort_values(ascending=False)
 
-maryland_counties = (maryland_counties.set_index(["State", "CountyName"])
-         .stack()
-         .reset_index(name='Value')
-         .rename(columns={'level_2':'Date'}))
-print(maryland_counties)
+# Export to CSV
+# maryland3.to_csv(data_path + 'maryland_raw_county_data.csv')
 
-# plt.title("Price Per County")
-# plt.xlabel("County")
-# plt.ylabel("Price Values")
-# xlabel = maryland['CountyName']
-# ylabel = maryland['']
-# plt.xticks(xlabel)
-# plt.yticks()
-# plt.plot(xlabel, )
-# # plt.savefig(pngs_folder + 'county_.png')
-# plt.show()
+# Ingest the file
+maryland4 = data_path + 'maryland_raw_county_data.csv'
+md = pd.read_csv(maryland4)
+
+# Drop all of the rows with zero values
+md = md.loc[~((md['Value'] == 0))]
+
+md['Value'] = md['Value'].apply(np.ceil)
+md['Value'] = md['Value'].astype(np.int64)
+
+# Drop the column with unnecessary values
+md.drop('0', axis=1, inplace=True)
+
+# print(md.head())
+
+# Export to CSV
+# md.to_csv(cleanData_folder + 'maryland_county_data.csv')
+
+# To display a graph of price per county
+md['Value'].plot(kind='bar')
+plt.xticks(rotation=30, horizontalalignment='center')
+plt.title("Price Per County")
+plt.xlabel("County")
+plt.ylabel("Price Values")
+plt.show()
 """---------------------------"""
 
 # ---- country wide plot and csv export ----
 # modify plot and show
-plt.xlabel("Year")
-plt.ylabel("Price")
-plt.plot(df_state["Maryland"], label="MD")
-plt.plot(df_state["Virginia"], label="VA")
-plt.plot(df_state["District of Columbia"], label="DC")
-plt.legend()
-plt.savefig(pngs_folder + 'state_time_series.png')
+# plt.xlabel("Year")
+# plt.ylabel("Price")
+# plt.plot(df_state["Maryland"], label="MD")
+# plt.plot(df_state["Virginia"], label="VA")
+# plt.plot(df_state["District of Columbia"], label="DC")
+# plt.legend()
+# plt.savefig(pngs_folder + 'state_time_series.png')
 # plt.show()
 
 # export table
