@@ -62,7 +62,11 @@ df_state.reset_index(inplace=True, drop=True)
 
 
 #------------------------------Rental Analysis-----------------------------------------------------------
-# Dropping the rows that are unnecessary
+
+df_rental = pd.read_csv("G:\My Drive\Fall2022\INST447\Final Project\City_zori_sm_month.csv")
+print(df_rental)
+
+# Drop the columns are not unnecessary
 df_rental.columns
 df_rental.drop(['RegionID', 'SizeRank', 'RegionType', 'StateName', 'Metro'], axis =1, inplace = True)
 df_rental.columns
@@ -91,6 +95,13 @@ rental_VA.drop(rental_VA.index[0], inplace = True)
 rental_VA.rename(columns = {'RegionName': 'Date'}, inplace = True)
 rental_VA.reset_index(inplace=True, drop=True)
 
+# Find the maximum and the minimum of the rental price in VA
+mean_VA = rental_VA.mean(axis=0)
+mean_VA
+mean_VA.min()
+mean_VA.max()
+
+
 # rental for MD
 rental_MD = df_DMV[df_DMV['State'] == 'MD']
 print(rental_MD)
@@ -100,6 +111,13 @@ rental_MD.reset_index(inplace = True, drop = False)
 rental_MD = rental_MD.rename(columns=rental_MD.iloc[0])
 rental_MD.drop(rental_MD.index[0], inplace = True)
 rental_MD.rename(columns = {'RegionName': 'Date'}, inplace = True)
+
+# Find the maximum and the minimum of the rental price in MD
+mean_MD = rental_MD.mean(axis=0)
+mean_MD
+mean_MD.min()
+mean_MD.max()
+mean_MD.mean()
 
 # rental for DC
 rental_DC = df_DMV[df_DMV['State'] == 'DC']
@@ -111,8 +129,16 @@ rental_DC = rental_DC.rename(columns=rental_DC.iloc[0])
 rental_DC.drop(rental_DC.index[0], inplace = True)
 rental_DC.rename(columns = {'RegionName': 'Date'}, inplace = True)
 
+# Find the maximum and the minimum of the rental price in DC
+mean_DC = rental_DC.mean(axis=0)
+
 
 # Visualization
+
+# Plot the rental price between state
+df = pd.DataFrame({'County':['MD', 'VA', 'DC'], 'Rental Price':[mean_MD.mean(), mean_VA.mean(), mean_DC.mean() ]})
+ax = df.plot.bar(x='County', y='Rental Price', rot=0)
+
 
 # Plot rental VA
 rental_VA.plot(subplots = True, layout = (8,5), figsize = (20,10))
