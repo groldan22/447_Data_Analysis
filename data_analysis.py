@@ -60,12 +60,70 @@ df_state.drop(df_state.index[0], inplace=True)
 df_state.rename(columns={'RegionName': 'Date'}, inplace=True)
 df_state.reset_index(inplace=True, drop=True)
 
-# Dropping the rows that are unnecessary
-df_rental2 = df_rental.drop(
-    ['RegionID', 'SizeRank', 'RegionType', 'StateName', 'Metro'], axis=1)
-# print(df_rental2)
 
-# --------------------
+#------------------------------Rental Analysis-----------------------------------------------------------
+# Dropping the rows that are unnecessary
+df_rental.columns
+df_rental.drop(['RegionID', 'SizeRank', 'RegionType', 'StateName', 'Metro'], axis =1, inplace = True)
+df_rental.columns
+
+# Get the State only in the DMV
+stateList = ['VA', 'MD', 'DC']
+df_DMV = df_rental[df_rental['State'].isin(stateList) == True]
+print(df_DMV)
+
+# Drop NaN drow in data frame
+df_DMV= df_DMV.dropna()
+
+# Get to know the data
+df_DMV.dtypes
+
+# Analyze the rental for each state
+
+# rental for VA
+rental_VA = df_DMV[df_DMV['State'] == 'VA']
+print(rental_VA)
+rental_VA.drop(['State', 'CountyName'], axis =1, inplace = True)
+rental_VA = rental_VA.T
+rental_VA.reset_index(inplace = True, drop = False)
+rental_VA = rental_VA.rename(columns=rental_VA.iloc[0])
+rental_VA.drop(rental_VA.index[0], inplace = True)
+rental_VA.rename(columns = {'RegionName': 'Date'}, inplace = True)
+rental_VA.reset_index(inplace=True, drop=True)
+
+# rental for MD
+rental_MD = df_DMV[df_DMV['State'] == 'MD']
+print(rental_MD)
+rental_MD.drop(['State', 'CountyName'], axis =1, inplace = True)
+rental_MD = rental_MD.T
+rental_MD.reset_index(inplace = True, drop = False)
+rental_MD = rental_MD.rename(columns=rental_MD.iloc[0])
+rental_MD.drop(rental_MD.index[0], inplace = True)
+rental_MD.rename(columns = {'RegionName': 'Date'}, inplace = True)
+
+# rental for DC
+rental_DC = df_DMV[df_DMV['State'] == 'DC']
+print(rental_DC)
+rental_DC.drop(['State', 'CountyName'], axis =1, inplace = True)
+rental_DC = rental_DC.T
+rental_DC.reset_index(inplace = True, drop = False)
+rental_DC = rental_DC.rename(columns=rental_DC.iloc[0])
+rental_DC.drop(rental_DC.index[0], inplace = True)
+rental_DC.rename(columns = {'RegionName': 'Date'}, inplace = True)
+
+
+# Visualization
+
+# Plot rental VA
+rental_VA.plot(subplots = True, layout = (8,5), figsize = (20,10))
+
+# Plot rental MD
+rental_MD.plot(subplots = True, layout = (8,5), figsize = (20,10))
+
+# Plot rental DC
+rental_DC.plot(subplots = True)
+
+# ---------------------------------------------------------------------------------------------------------------------
 # modify plot and show
 """---------------------------"""
 # TO DO: Create a data visualization that shows the top 10 counties from Maryland based on the price values - Viphu
