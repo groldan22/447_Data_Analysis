@@ -62,6 +62,7 @@ df_state.reset_index(inplace=True, drop=True)
 
 
 # ------------------------------Rental Analysis-----------------------------------------------------------
+
 # Dropping the rows that are unnecessary
 df_rental.columns
 df_rental.drop(['RegionID', 'SizeRank', 'RegionType',
