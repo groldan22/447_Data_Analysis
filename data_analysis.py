@@ -191,7 +191,7 @@ topCounties = md.groupby('CountyName').head().reset_index(drop=True)
 countiesPrice = topCounties.groupby('CountyName').head(1).reset_index(drop=True)
 
 # Export to CSV
-# countiesPrice.to_csv(cleanData_folder + 'maryland_county_data.csv')
+countiesPrice.to_csv(cleanData_folder + 'maryland_county_data.csv')
 
 # Visualization
 
