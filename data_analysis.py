@@ -182,7 +182,7 @@ countiesPrice = topCounties.groupby('CountyName').head(1).reset_index(drop=True)
 
 # To display a graph of price per county
 countiesPrice.groupby(['CountyName']).sum().plot(kind='bar')
-plt.show()
+plt.savefig(pngs_folder + 'Rental_MD_PriceValue')
 
 # ---------------------------------------------------------------------------------------------------------------------
 # ---- country wide plot and csv export ----
