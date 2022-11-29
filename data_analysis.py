@@ -115,14 +115,20 @@ rental_DC.rename(columns={'RegionName': 'Date'}, inplace=True)
 
 # Visualization
 
+# Plot the rental price between state
+df = pd.DataFrame({'County':['MD', 'VA', 'DC'], 'Rental Price':[mean_MD.mean(), mean_VA.mean(), mean_DC.mean() ]})
+ax = df.plot.bar(x='County', y='Rental Price', rot=0)
+plt.savefig(pngs_folder + 'rental_price')
+
 # Plot rental VA
 rental_VA.plot(subplots = True, layout = (8,5), figsize = (20,10))
-
-# # Plot rental MD
+plt.savefig(pngs_folder + 'Rental_VA')
+# Plot rental MD
 rental_MD.plot(subplots = True, layout = (8,5), figsize = (20,10))
-
-# # Plot rental DC
+plt.savefig(pngs_folder + 'Rental_MD')
+# Plot rental DC
 rental_DC.plot(subplots = True)
+plt.savefig(pngs_folder + 'Rental_DC')
 
 # ---------------------------------------------------------------------------------------------------------------------
 
