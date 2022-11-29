@@ -146,6 +146,8 @@ plt.savefig(pngs_folder + 'Rental_MD')
 # Plot rental DC
 rental_DC.plot(subplots = True)
 plt.savefig(pngs_folder + 'Rental_DC')
+
+
 # ---------------------------------------------------------------------------------------------------------------------
 # modify plot and show
 """---------------------------"""
