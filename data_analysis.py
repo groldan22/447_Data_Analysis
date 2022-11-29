@@ -63,9 +63,6 @@ df_state.reset_index(inplace=True, drop=True)
 
 #------------------------------Rental Analysis-----------------------------------------------------------
 
-df_rental = pd.read_csv("G:\My Drive\Fall2022\INST447\Final Project\City_zori_sm_month.csv")
-print(df_rental)
-
 # Drop the columns are not unnecessary
 df_rental.columns
 df_rental.drop(['RegionID', 'SizeRank', 'RegionType', 'StateName', 'Metro'], axis =1, inplace = True)
