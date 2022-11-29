@@ -61,11 +61,10 @@ df_state.rename(columns={'RegionName': 'Date'}, inplace=True)
 df_state.reset_index(inplace=True, drop=True)
 
 
-#------------------------------Rental Analysis-----------------------------------------------------------
 
-# Drop the columns are not unnecessary
 df_rental.columns
-df_rental.drop(['RegionID', 'SizeRank', 'RegionType', 'StateName', 'Metro'], axis =1, inplace = True)
+df_rental.drop(['RegionID', 'SizeRank', 'RegionType',
+               'StateName', 'Metro'], axis=1, inplace=True)
 df_rental.columns
 
 # Get the State only in the DMV
@@ -74,7 +73,7 @@ df_DMV = df_rental[df_rental['State'].isin(stateList) == True]
 print(df_DMV)
 
 # Drop NaN drow in data frame
-df_DMV= df_DMV.dropna()
+df_DMV = df_DMV.dropna()
 
 # Get to know the data
 df_DMV.dtypes
@@ -84,12 +83,12 @@ df_DMV.dtypes
 # rental for VA
 rental_VA = df_DMV[df_DMV['State'] == 'VA']
 print(rental_VA)
-rental_VA.drop(['State', 'CountyName'], axis =1, inplace = True)
+rental_VA.drop(['State', 'CountyName'], axis=1, inplace=True)
 rental_VA = rental_VA.T
-rental_VA.reset_index(inplace = True, drop = False)
+rental_VA.reset_index(inplace=True, drop=False)
 rental_VA = rental_VA.rename(columns=rental_VA.iloc[0])
-rental_VA.drop(rental_VA.index[0], inplace = True)
-rental_VA.rename(columns = {'RegionName': 'Date'}, inplace = True)
+rental_VA.drop(rental_VA.index[0], inplace=True)
+rental_VA.rename(columns={'RegionName': 'Date'}, inplace=True)
 rental_VA.reset_index(inplace=True, drop=True)
 
 # Find the maximum and the minimum of the rental price in VA
@@ -102,12 +101,12 @@ mean_VA.max()
 # rental for MD
 rental_MD = df_DMV[df_DMV['State'] == 'MD']
 print(rental_MD)
-rental_MD.drop(['State', 'CountyName'], axis =1, inplace = True)
+rental_MD.drop(['State', 'CountyName'], axis=1, inplace=True)
 rental_MD = rental_MD.T
-rental_MD.reset_index(inplace = True, drop = False)
+rental_MD.reset_index(inplace=True, drop=False)
 rental_MD = rental_MD.rename(columns=rental_MD.iloc[0])
-rental_MD.drop(rental_MD.index[0], inplace = True)
-rental_MD.rename(columns = {'RegionName': 'Date'}, inplace = True)
+rental_MD.drop(rental_MD.index[0], inplace=True)
+rental_MD.rename(columns={'RegionName': 'Date'}, inplace=True)
 
 # Find the maximum and the minimum of the rental price in MD
 mean_MD = rental_MD.mean(axis=0)
@@ -119,12 +118,12 @@ mean_MD.mean()
 # rental for DC
 rental_DC = df_DMV[df_DMV['State'] == 'DC']
 print(rental_DC)
-rental_DC.drop(['State', 'CountyName'], axis =1, inplace = True)
+rental_DC.drop(['State', 'CountyName'], axis=1, inplace=True)
 rental_DC = rental_DC.T
-rental_DC.reset_index(inplace = True, drop = False)
+rental_DC.reset_index(inplace=True, drop=False)
 rental_DC = rental_DC.rename(columns=rental_DC.iloc[0])
-rental_DC.drop(rental_DC.index[0], inplace = True)
-rental_DC.rename(columns = {'RegionName': 'Date'}, inplace = True)
+rental_DC.drop(rental_DC.index[0], inplace=True)
+rental_DC.rename(columns={'RegionName': 'Date'}, inplace=True)
 
 # Find the maximum and the minimum of the rental price in DC
 mean_DC = rental_DC.mean(axis=0)
@@ -147,13 +146,12 @@ plt.savefig(pngs_folder + 'Rental_MD')
 rental_DC.plot(subplots = True)
 plt.savefig(pngs_folder + 'Rental_DC')
 
-
 # ---------------------------------------------------------------------------------------------------------------------
-# modify plot and show
-"""---------------------------"""
-# TO DO: Create a data visualization that shows the top 10 counties from Maryland based on the price values - Viphu
+
+
+# ------------------------------Maryland Top Counties Price Values Analysis---------------------------------------------
 # Removing the NaN with 0 values
-df_rental2 = df_rental2.fillna(0)
+df_rental2 = df_rental.fillna(0)
 maryland = df_rental2[df_rental2['State'] == 'MD']
 # Remove the column for city name
 maryland = maryland.drop(['RegionName'], axis=1)
@@ -181,23 +179,27 @@ md = md.loc[~((md['Value'] == 0))]
 md['Value'] = md['Value'].apply(np.ceil)
 md['Value'] = md['Value'].astype(np.int64)
 
-# Drop the column with unnecessary values
+# Drop the columns with unnecessary values and Date
 md.drop('0', axis=1, inplace=True)
+md.drop(columns = {'Date'}, inplace = True)
 
-# print(md.head())
+# Rename the Value column to Price value
+md.rename(columns = {'Value':'PriceValue'}, inplace = True)
+
+# Group based on the County Name and the the top price value
+topCounties = md.groupby('CountyName').head().reset_index(drop=True)
+countiesPrice = topCounties.groupby('CountyName').head(1).reset_index(drop=True)
 
 # Export to CSV
-# md.to_csv(cleanData_folder + 'maryland_county_data.csv')
+# countiesPrice.to_csv(cleanData_folder + 'maryland_county_data.csv')
+
+# Visualization
 
 # To display a graph of price per county
-md['Value'].plot(kind='bar')
-plt.xticks(rotation=30, horizontalalignment='center')
-plt.title("Price Per County")
-plt.xlabel("County")
-plt.ylabel("Price Values")
-plt.show()
-"""---------------------------"""
+countiesPrice.groupby(['CountyName']).sum().plot(kind='bar')
+plt.savefig(pngs_folder + 'Rental_MD_PriceValue')
 
+# ---------------------------------------------------------------------------------------------------------------------
 # ---- country wide plot and csv export ----
 # modify plot and show
 # plt.xlabel("Year")
