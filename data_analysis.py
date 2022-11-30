@@ -61,7 +61,9 @@ df_state.rename(columns={'RegionName': 'Date'}, inplace=True)
 df_state.reset_index(inplace=True, drop=True)
 
 
+# ------------------------------Rental Analysis-----------------------------------------------------------
 
+# Dropping the rows that are unnecessary
 df_rental.columns
 df_rental.drop(['RegionID', 'SizeRank', 'RegionType',
                'StateName', 'Metro'], axis=1, inplace=True)
@@ -114,6 +116,7 @@ mean_MD
 mean_MD.min()
 mean_MD.max()
 mean_MD.mean()
+
 
 # rental for DC
 rental_DC = df_DMV[df_DMV['State'] == 'DC']
@@ -202,18 +205,18 @@ plt.savefig(pngs_folder + 'Rental_MD_PriceValue')
 # ---------------------------------------------------------------------------------------------------------------------
 # ---- country wide plot and csv export ----
 # modify plot and show
-# plt.xlabel("Year")
-# plt.ylabel("Price")
-# plt.plot(df_state["Maryland"], label="MD")
-# plt.plot(df_state["Virginia"], label="VA")
-# plt.plot(df_state["District of Columbia"], label="DC")
-# plt.legend()
-# plt.savefig(pngs_folder + 'state_time_series.png')
-# plt.show()
+plt.xlabel("Year")
+plt.ylabel("Price")
+plt.plot(df_state["Maryland"], label="MD")
+plt.plot(df_state["Virginia"], label="VA")
+plt.plot(df_state["District of Columbia"], label="DC")
+plt.legend()
+plt.savefig(pngs_folder + 'state_time_series.png')
+plt.show()
 
 # export table
-# df_state.to_csv(cleanData_folder + "regions_table.csv")
-# df_rental.to_csv(cleanData_folder + "ingested_rental.csv")
-# df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value.csv")
+df_state.to_csv(cleanData_folder + "regions_table.csv")
+df_rental.to_csv(cleanData_folder + "ingested_rental.csv")
+df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value.csv")
 
 # --------------------
