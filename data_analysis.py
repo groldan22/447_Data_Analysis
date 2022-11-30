@@ -93,6 +93,13 @@ rental_VA.drop(rental_VA.index[0], inplace=True)
 rental_VA.rename(columns={'RegionName': 'Date'}, inplace=True)
 rental_VA.reset_index(inplace=True, drop=True)
 
+# Find the maximum and the minimum of the rental price in VA
+mean_VA = rental_VA.mean(axis=0)
+mean_VA
+mean_VA.min()
+mean_VA.max()
+
+
 # rental for MD
 rental_MD = df_DMV[df_DMV['State'] == 'MD']
 print(rental_MD)
@@ -103,6 +110,14 @@ rental_MD = rental_MD.rename(columns=rental_MD.iloc[0])
 rental_MD.drop(rental_MD.index[0], inplace=True)
 rental_MD.rename(columns={'RegionName': 'Date'}, inplace=True)
 
+# Find the maximum and the minimum of the rental price in MD
+mean_MD = rental_MD.mean(axis=0)
+mean_MD
+mean_MD.min()
+mean_MD.max()
+mean_MD.mean()
+
+
 # rental for DC
 rental_DC = df_DMV[df_DMV['State'] == 'DC']
 print(rental_DC)
@@ -112,6 +127,9 @@ rental_DC.reset_index(inplace=True, drop=False)
 rental_DC = rental_DC.rename(columns=rental_DC.iloc[0])
 rental_DC.drop(rental_DC.index[0], inplace=True)
 rental_DC.rename(columns={'RegionName': 'Date'}, inplace=True)
+
+# Find the maximum and the minimum of the rental price in DC
+mean_DC = rental_DC.mean(axis=0)
 
 
 # Visualization
@@ -187,18 +205,18 @@ plt.savefig(pngs_folder + 'Rental_MD_PriceValue')
 # ---------------------------------------------------------------------------------------------------------------------
 # ---- country wide plot and csv export ----
 # modify plot and show
-# plt.xlabel("Year")
-# plt.ylabel("Price")
-# plt.plot(df_state["Maryland"], label="MD")
-# plt.plot(df_state["Virginia"], label="VA")
-# plt.plot(df_state["District of Columbia"], label="DC")
-# plt.legend()
-# plt.savefig(pngs_folder + 'state_time_series.png')
-# plt.show()
+plt.xlabel("Year")
+plt.ylabel("Price")
+plt.plot(df_state["Maryland"], label="MD")
+plt.plot(df_state["Virginia"], label="VA")
+plt.plot(df_state["District of Columbia"], label="DC")
+plt.legend()
+plt.savefig(pngs_folder + 'state_time_series.png')
+plt.show()
 
 # export table
-# df_state.to_csv(cleanData_folder + "regions_table.csv")
-# df_rental.to_csv(cleanData_folder + "ingested_rental.csv")
-# df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value.csv")
+df_state.to_csv(cleanData_folder + "regions_table.csv")
+df_rental.to_csv(cleanData_folder + "ingested_rental.csv")
+df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value.csv")
 
 # --------------------
