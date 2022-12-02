@@ -170,7 +170,7 @@ maryland3 = maryland2.groupby(
     ['CountyName', 'Date', 'Value']).size().sort_values(ascending=False)
 
 # Export to CSV
-# maryland3.to_csv(data_path + 'maryland_raw_county_data.csv')
+maryland3.to_csv(data_path + 'maryland_raw_county_data.csv')
 
 # Ingest the file
 maryland4 = data_path + 'maryland_raw_county_data.csv'
