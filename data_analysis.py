@@ -18,6 +18,7 @@ cleanData = str(path) + "/cleanData/"
 pngs_folder = str(path) + "/pngs/"
 
 # set file paths to INGEST here.
+metro_rental_path = data_path + "Metro_zori_sm_month.csv"
 state_stats_path = data_path + "State_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv"
 city_rental_path = data_path + "City_zori_sm_month.csv"
 zip_home_value_path = data_path + \
@@ -37,9 +38,8 @@ df_home_value_zip = pd.read_csv(zip_home_value_path)
 # --------------------
 
 
-# ---- country wide manipulation ----
-# !!!reformat so that all other states have their own data frame in similar format is needed!!!
-# !!!print data frame df to see old vs "clean". They should look the same!!!
+# ---- country wide manipulation + metro rental gerson ----
+
 region_list = ["Maryland", "Virginia", "District of Columbia"]
 region_list2 = ["MD", "VA", "DC"]
 # # remove all states but Maryland Virginia and DC
@@ -60,6 +60,30 @@ df_state.drop(df_state.index[0], inplace=True)
 df_state.rename(columns={'RegionName': 'Date'}, inplace=True)
 df_state.reset_index(inplace=True, drop=True)
 
+#####
+# clean metro rental
+region_list = ["Washington, DC"]
+df_mRental = pd.read_csv(metro_rental_path)
+df_mRental = df_mRental[df_mRental.RegionName.isin(region_list) == True]
+
+df_mRental.drop(["RegionID"], 1, inplace= True)
+df_mRental.drop(["SizeRank"], 1, inplace = True)
+
+df_mRental = df_mRental.T
+df_mRental = df_mRental.rename(columns=df_mRental.iloc[0])
+df_mRental.drop(df_mRental.index[0], inplace=True)
+df_mRental.drop(df_mRental.index[0], inplace=True)
+df_mRental.drop(df_mRental.index[0], inplace=True)
+df_mRental.reset_index(inplace=True, drop=False)
+df_mRental.rename(columns={'index': 'Date'}, inplace=True)
+df_mRental.rename(columns={'Washington, DC': 'metroRental'}, inplace=True)
+
+# rental plot and save
+plt.plot(df_mRental["metroRental"], label = "Metro Rental",)
+plt.title("Rental Prices in the Washington Metro Region")
+plt.savefig(pngs_folder + 'metro_rental')
+plt.show()
+df_mRental.to_csv(cleanData + "metroRentalClean.csv")
 
 # ------------------------------Rental Analysis-----------------------------------------------------------
 
@@ -213,6 +237,7 @@ plt.plot(df_state["Maryland"], label="MD")
 plt.plot(df_state["Virginia"], label="VA")
 plt.plot(df_state["District of Columbia"], label="DC")
 plt.legend()
+plt.title("DMV Home Prices")
 plt.savefig(pngs_folder + 'state_time_series.png')
 plt.show()
 
