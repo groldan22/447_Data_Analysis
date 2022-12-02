@@ -1,4 +1,7 @@
 # 447_Data_Analysis
+Gerson_branch
+group project repo for data analysis course
+data sources: https://www.zillow.com/research/data/
 
 ## Description
 Group project repo for data analysis course of INST447. Our project domain is real estate prices in various zip codes within the Washington metropolitan area (heretofore referred to as the DMV). The primary goal of our project is to retrieve, analyze, and present data which may be used to draw inferences and inform personal or business investment decisions revolving around real estate going into the year 2023. We believe that this data may reveal homogenous traits among certain zip codes which may be correlated with trends in the real estate market.
@@ -18,4 +21,3 @@ We used Zillow as our sole source of data acquisition for our project. Zillow is
 * A high level analysis of average historical rent prices in all 3 regions of the DMV by state
 * A high level analysis of average historical prices for rental properties in the DMV separated by city
 
-Zillow: https://www.zillow.com/research/data/ 

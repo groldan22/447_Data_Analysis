@@ -14,7 +14,7 @@ path = str(path)
 
 # path to data, cleanData, and pngs folder here.
 data_path = str(path) + "/data/"
-cleanData_folder = str(path) + "/cleanData/"
+cleanData = str(path) + "/cleanData/"
 pngs_folder = str(path) + "/pngs/"
 
 # set file paths to INGEST here.
@@ -135,6 +135,7 @@ mean_DC = rental_DC.mean(axis=0)
 # Visualization
 
 # Plot the rental price between state
+plt.title("Average Rental")
 df = pd.DataFrame({'County':['MD', 'VA', 'DC'], 'Rental Price':[mean_MD.mean(), mean_VA.mean(), mean_DC.mean() ]})
 ax = df.plot.bar(x='County', y='Rental Price', rot=0)
 plt.savefig(pngs_folder + 'rental_price')
@@ -194,7 +195,7 @@ topCounties = md.groupby('CountyName').head().reset_index(drop=True)
 countiesPrice = topCounties.groupby('CountyName').head(1).reset_index(drop=True)
 
 # Export to CSV
-countiesPrice.to_csv(cleanData_folder + 'maryland_county_data.csv')
+countiesPrice.to_csv(cleanData + 'maryland_county_data.csv')
 
 # Visualization
 
@@ -216,8 +217,8 @@ plt.savefig(pngs_folder + 'state_time_series.png')
 plt.show()
 
 # export table
-df_state.to_csv(cleanData_folder + "regions_table.csv")
-df_rental.to_csv(cleanData_folder + "ingested_rental.csv")
-df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value.csv")
+df_state.to_csv(cleanData + "regions_table.csv")
+df_rental.to_csv(cleanData + "ingested_rental.csv")
+df_home_value_zip.to_csv(cleanData + "ingested_zip_home_value.csv")
 
 # --------------------
