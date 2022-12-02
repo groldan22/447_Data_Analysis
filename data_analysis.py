@@ -204,6 +204,7 @@ plt.savefig(pngs_folder + 'Rental_MD_PriceValue')
 
 # ---------------------------------------------------------------------------------------------------------------------
 # ---- country wide plot and csv export ----
+# gerson update
 # modify plot and show
 plt.xlabel("Year")
 plt.ylabel("Price")
