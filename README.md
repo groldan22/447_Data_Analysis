@@ -8,3 +8,5 @@ Our scope includes data about the historical trends of the price of rental prope
 * Which zip codes had the greatest increase and decrease in home ownership / residents over time
 * Which zip codes experienced the greatest increase or decrease in home value (rental prices, house value on market) historically
 * Where might the next booming market be, or which zip code(s) have the highest growth potential
+
+
