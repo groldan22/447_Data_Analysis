@@ -14,7 +14,7 @@ path = str(path)
 
 # path to data, cleanData, and pngs folder here.
 data_path = str(path) + "/data/"
-cleanData_folder = str(path) + "/cleanData/"
+cleanData = str(path) + "/cleanData/"
 pngs_folder = str(path) + "/pngs/"
 
 # set file paths to INGEST here.
@@ -153,20 +153,20 @@ plt.savefig(pngs_folder + 'Rental_DC')
 """---------------------------"""
 # TO DO: Create a data visualization that shows the top 10 counties from Maryland based on the price values - Viphu
 # Removing the NaN with 0 values
-df_rental2 = df_rental2.fillna(0)
-maryland = df_rental2[df_rental2['State'] == 'MD']
-# Remove the column for city name
-maryland = maryland.drop(['RegionName'], axis=1)
+# df_rental2 = df_rental2.fillna(0)
+# maryland = df_rental2[df_rental2['State'] == 'MD']
+# # Remove the column for city name
+# maryland = maryland.drop(['RegionName'], axis=1)
 
-# Merge all of the date columns to rows
-maryland2 = maryland.melt(id_vars=['State', 'CountyName'],
-                          var_name='Date',
-                          value_name='Value')
-pd.set_option('display.max_rows', 500)
-pd.set_option('display.width', 1000)
+# # Merge all of the date columns to rows
+# maryland2 = maryland.melt(id_vars=['State', 'CountyName'],
+#                           var_name='Date',
+#                           value_name='Value')
+# pd.set_option('display.max_rows', 500)
+# pd.set_option('display.width', 1000)
 
-maryland3 = maryland2.groupby(
-    ['CountyName', 'Date', 'Value']).size().sort_values(ascending=False)
+# maryland3 = maryland2.groupby(
+#     ['CountyName', 'Date', 'Value']).size().sort_values(ascending=False)
 
 # Export to CSV
 # maryland3.to_csv(data_path + 'maryland_raw_county_data.csv')
@@ -201,18 +201,18 @@ plt.show()
 # ---- country wide plot and csv export ----
 # gerson test commit here
 # modify plot and show
-# plt.xlabel("Year")
-# plt.ylabel("Price")
-# plt.plot(df_state["Maryland"], label="MD")
-# plt.plot(df_state["Virginia"], label="VA")
-# plt.plot(df_state["District of Columbia"], label="DC")
-# plt.legend()
-# plt.savefig(pngs_folder + 'state_time_series.png')
-# plt.show()
+plt.xlabel("Year")
+plt.ylabel("Price")
+plt.plot(df_state["Maryland"], label="MD")
+plt.plot(df_state["Virginia"], label="VA")
+plt.plot(df_state["District of Columbia"], label="DC")
+plt.legend()
+plt.savefig(pngs_folder + 'state_price_time_series.png')
+plt.show()
 
 # export table
-# df_state.to_csv(cleanData_folder + "regions_table.csv")
-# df_rental.to_csv(cleanData_folder + "ingested_rental.csv")
-# df_home_value_zip.to_csv(cleanData_folder + "ingested_zip_home_value.csv")
+df_state.to_csv(cleanData + "regions_table.csv")
+# df_rental.to_csv(cleanData + "ingested_rental.csv")
+# df_home_value_zip.to_csv(cleanData + "ingested_zip_home_value.csv")
 
 # --------------------
