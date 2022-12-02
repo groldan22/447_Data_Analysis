@@ -10,3 +10,12 @@ Our scope includes data about the historical trends of the price of rental prope
 * Where might the next booming market be, or which zip code(s) have the highest growth potential
 
 
+## Data Source:
+We used Zillow as our sole source of data acquisition for our project. Zillow is a well-established American real estate marketplace which offers real estate data of a wide array of variables across the various levels (city, state, national) of the US real estate market. The comprehensiveness of their database meant that we were able to acquire all relevant data about rental and housing prices in the DMV from Zillow alone. We chose five key datasets from Zillow’s database which we deemed relevant to our project: 
+* A high level analysis of average historical home values of all 3 regions in the DMV by state (DC, MD, VA)
+* A high level analysis of average historical home values of all 3 regions in the DMV separated by zip code
+* A high level analysis of average historical home values for each state in the USA
+* A high level analysis of average historical rent prices in all 3 regions of the DMV by state
+* A high level analysis of average historical prices for rental properties in the DMV separated by city
+
+Zillow: https://www.zillow.com/research/data/ 
